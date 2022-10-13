@@ -9,7 +9,7 @@ class Api {
     this._domain = domain;
   }
 
-  private async perform(url: string, data?: any, config?: Record<any, any>) {
+  private async perform(url: string, data?: any, config?: Record<any, any>): Promise<any> {
     const response = await fetch(`${this._domain}${url}`, {
       ...config,
       body: JSON.stringify(data),
@@ -17,12 +17,14 @@ class Api {
         "Content-type": "application/json",
       },
     });
-    if (response.status === 200) {
-      return await response.json();
-    } else {
-      const error = await response.json();
-      throw new Error(error.message);
+
+    const parsedResponse = await response.json();
+
+    if (!response.ok) {
+      throw new Error(parsedResponse);
     }
+
+    return parsedResponse;
   }
 
   async get(path: string, queryParams: Record<any, any> = {}) {
