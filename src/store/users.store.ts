@@ -3,7 +3,7 @@ import { makeAutoObservable } from "mobx";
 import Api from "../api";
 import { User } from "../api/types";
 
-class Store {
+export class UsersStore {
   private _isLoading = false;
   private _users: Array<User> = [];
 
@@ -24,5 +24,3 @@ class Store {
     }
   };
 }
-
-export const usersStore = new Store();

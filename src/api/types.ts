@@ -4,3 +4,8 @@ export type User = {
   avatar: string;
   createdAt: string;
 };
+
+export type LoginDto = {
+  login: string;
+  password: string;
+};
