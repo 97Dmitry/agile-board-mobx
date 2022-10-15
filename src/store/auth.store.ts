@@ -1,45 +1,46 @@
 import { LoginDto, User } from "api/types";
 import { IsAuthorized } from "core/IsAuthorized";
+import { IsLoading } from "core/IsLoading";
 import { makeAutoObservable, runInAction, toJS } from "mobx";
 import { AuthService } from "services/auth.service";
 
 export class AuthStore {
-  constructor(private readonly authService: AuthService) {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly isLoadingState: IsLoading,
+    private readonly isAuthorizedState: IsAuthorized) {
     makeAutoObservable(this);
   }
 
-  private _isLoading = false;
   private _me: User | undefined;
-  private _isAuthorized = new IsAuthorized();
 
   get me() {
     return toJS(this._me);
   }
 
   get isAuthorized() {
-    return this._isAuthorized.value;
+    return this.isAuthorizedState.value;
   }
 
   get isLoading() {
-    return this._isLoading;
+    return this.isLoadingState.value;
   }
 
   login = async (payload: LoginDto) => {
-    this._isLoading = true;
+    this.isLoadingState.setTrue();
     try {
       const user = await this.authService.login(payload);
       runInAction(() => (this._me = user));
-
-      this._isAuthorized.setTrue();
+      this.isAuthorizedState.setTrue();
     } catch (error) {
       error instanceof Error && console.log(error.message);
     } finally {
-      this._isLoading = false;
+      this.isLoadingState.setFalse();
     }
   };
 
   logout = () => {
-    this._isAuthorized.setFalse();
+    this.isAuthorizedState.setFalse();
     this._me = undefined;
   };
 }

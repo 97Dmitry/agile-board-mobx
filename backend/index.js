@@ -25,23 +25,23 @@ app.get("users", (req, res) => {
   res.send(db.users);
 });
 
-app.get("boards", (req, res) => {
+app.get("board", (req, res) => {
   res.send(db.boards);
 });
 
-app.get("/board_main_tasks", (req, res) => {
+app.get("/board-main-tasks", (req, res) => {
   res.send(db.board_main_tasks);
 });
 
-app.get("/board_main_tasks/:id", (req, res) => {
+app.get("/board-main-tasks/:id", (req, res) => {
   res.send(db.board_main_tasks.find((task) => (task.id = req.params.id)));
 });
 
-app.get("/board_development_tasks", (req, res) => {
+app.get("/board-development-tasks", (req, res) => {
   res.send(db.board_development_tasks);
 });
 
-app.get("/board_development_tasks/:id", (req, res) => {
+app.get("/board-development-tasks/:id", (req, res) => {
   res.send(db.board_development_tasks.find((task) => (task.id = req.params.id)));
 });
 
