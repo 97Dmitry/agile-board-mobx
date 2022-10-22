@@ -11,32 +11,40 @@ import { BoardStore } from "store/board.store";
 import { DevelopmentTasksStore } from "store/developmentTasks.store";
 import { MainTasksStore } from "store/mainTasks.store";
 import { UsersStore } from "store/users.store";
+import { AppStore } from "../store/app.store";
 
 interface IStoreContext {
+  appStore: AppStore;
   authStore: AuthStore;
   usersStore: UsersStore;
-  boardStore: BoardStore
+  boardStore: BoardStore;
   mainTasksStore: MainTasksStore;
   developmentTasksStore: DevelopmentTasksStore;
 }
 
+const appStore = new AppStore();
+
 const authService = new AuthService();
-const isAuthorizedState = new IsAuthorized;
-const authStore = new AuthStore(authService, new IsLoading, isAuthorizedState);
+const isAuthorizedState = new IsAuthorized();
+const authStore = new AuthStore(authService, new IsLoading(), isAuthorizedState);
 
 const usersService = new UsersService();
-const usersStore = new UsersStore(usersService, new IsLoading);
+const usersStore = new UsersStore(usersService, new IsLoading());
 
-const boardService = new BoardService;
-const boardStore = new BoardStore(boardService, new IsLoading);
+const boardService = new BoardService();
+const boardStore = new BoardStore(boardService, new IsLoading());
 
 const mainTasksService = new MainTasksService();
-const mainTasksStore = new MainTasksStore(mainTasksService, new IsLoading);
+const mainTasksStore = new MainTasksStore(mainTasksService, new IsLoading());
 
 const developmentTasksService = new DevelopmentTasksService();
-const developmentTasksStore = new DevelopmentTasksStore(developmentTasksService, new IsLoading);
-
+const developmentTasksStore = new DevelopmentTasksStore(developmentTasksService, new IsLoading());
 
 export const StoreContext = React.createContext<IStoreContext>({
-  authStore, usersStore, boardStore, mainTasksStore, developmentTasksStore
+  appStore,
+  authStore,
+  usersStore,
+  boardStore,
+  mainTasksStore,
+  developmentTasksStore,
 });
