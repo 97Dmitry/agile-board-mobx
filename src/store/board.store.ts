@@ -1,11 +1,14 @@
 import { Board, BoardIds } from "api/types";
 import { IsLoading } from "core/IsLoading";
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, runInAction, toJS } from "mobx";
 import { BoardService } from "services/board.service";
 import { errorHandler } from "utils/errorHandler";
 
 export class BoardStore {
-  constructor(private readonly boardService: BoardService, private readonly isLoadingState: IsLoading) {
+  constructor(
+    private readonly boardService: BoardService,
+    private readonly isLoadingState: IsLoading,
+  ) {
     makeAutoObservable(this);
   }
 
@@ -17,7 +20,7 @@ export class BoardStore {
   }
 
   get board() {
-    return this._board;
+    return toJS(this._board);
   }
 
   get activeBoard() {
@@ -28,13 +31,11 @@ export class BoardStore {
     this.isLoadingState.setTrue();
     try {
       const board = await this.boardService.board();
-      board && runInAction(() => this._board = board);
+      board && runInAction(() => (this._board = board));
     } catch (error) {
       errorHandler(error);
-    }
-    finally {
+    } finally {
       this.isLoadingState.setFalse();
     }
   };
-
 }
