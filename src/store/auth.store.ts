@@ -8,7 +8,8 @@ export class AuthStore {
   constructor(
     private readonly authService: AuthService,
     private readonly isLoadingState: IsLoading,
-    private readonly isAuthorizedState: IsAuthorized) {
+    private readonly isAuthorizedState: IsAuthorized,
+  ) {
     makeAutoObservable(this);
   }
 

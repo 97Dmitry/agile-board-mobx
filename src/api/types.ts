@@ -1,4 +1,3 @@
-
 export type User = {
   id: string;
   name: string;
@@ -12,28 +11,28 @@ export type LoginDto = {
 };
 
 export type Task = {
-  id: string,
-  title: string,
-  description: string,
-  assignee: string
+  id: string;
+  title: string;
+  description: string;
+  assignee: string;
 };
 
 export type BoardSection = {
-  id: string,
-  title: string
-}
+  id: string;
+  title: string;
+};
 
 export enum BoardIds {
   MAIN = "MAIN",
-  DEVELOPMENT = "DEVELOPMENT"
+  DEVELOPMENT = "DEVELOPMENT",
 }
 
 export type Board = Array<{
-  id: BoardIds,
-  title: string,
-  sections: Array<BoardSection>
-}>
+  id: BoardIds;
+  title: string;
+  sections: Array<BoardSection>;
+}>;
 
-export type MainTasks = Array<{ id: string, tasks: Array<Task> }>
+export type MainTasks = Array<{ id: string; tasks: Array<Task> }>;
 
-export type DevelopmentTasks = Array<{ id: string, tasks: Array<Task> }>
+export type DevelopmentTasks = Array<{ id: string; tasks: Array<Task> }>;

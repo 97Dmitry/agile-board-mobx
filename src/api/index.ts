@@ -3,7 +3,7 @@ import { stringify } from "query-string";
 const DOMAIN = "http://localhost:7000/";
 
 class Api {
-  private _domain: string;
+  private readonly _domain: string;
 
   constructor(domain: string) {
     this._domain = domain;
@@ -21,7 +21,7 @@ class Api {
     const parsedResponse = await response.json();
 
     if (!response.ok) {
-      throw new Error(parsedResponse);
+      throw new Error(parsedResponse.message);
     }
 
     return parsedResponse;

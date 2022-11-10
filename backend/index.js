@@ -21,11 +21,11 @@ app.post("/login", (req, res) => {
   }
 });
 
-app.get("users", (req, res) => {
+app.get("/users", (req, res) => {
   res.send(db.users);
 });
 
-app.get("board", (req, res) => {
+app.get("/board", (req, res) => {
   res.send(db.boards);
 });
 
@@ -34,7 +34,7 @@ app.get("/board-main-tasks", (req, res) => {
 });
 
 app.get("/board-main-tasks/:id", (req, res) => {
-  res.send(db.board_main_tasks.find((task) => (task.id = req.params.id)));
+  res.send(db.board_main_tasks.find((task) => task.id === req.params.id));
 });
 
 app.get("/board-development-tasks", (req, res) => {
@@ -42,7 +42,7 @@ app.get("/board-development-tasks", (req, res) => {
 });
 
 app.get("/board-development-tasks/:id", (req, res) => {
-  res.send(db.board_development_tasks.find((task) => (task.id = req.params.id)));
+  res.send(db.board_development_tasks.find((task) => task.id === req.params.id));
 });
 
 const PORT = process.env.PORT || 7000;
